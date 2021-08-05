@@ -27,10 +27,8 @@ Notification must be sent when a new report is available.
 List the dependencies of the Analysis-functionality.
 
 1. Access to the Server containing the telemetrics in a csv file
-1. _enter dependency
-1. _enter dependency
-
-(add more if needed)
+1.   PDF Report generator
+1.   Notifier
 
 ### Mark the System Boundary
 
@@ -40,10 +38,10 @@ What is included in the software unit-test? What is not? Fill this table.
 |---------------------------|---------------|---
 Battery Data-accuracy       | No            | We do not test the accuracy of data
 Computation of maximum      | Yes           | This is part of the software being developed
-Off-the-shelf PDF converter | _enter Yes/No | _enter reasoning
-Counting the breaches       | _enter Yes/No | _enter reasoning
-Detecting trends            | _enter Yes/No | _enter reasoning
-Notification utility        | _enter Yes/No | _enter reasoning
+Off-the-shelf PDF converter | No | No need to use an explicit pdf converter 
+Counting the breaches       | Yes | Need understand how the implementation behaves in extreme condition and must handle it smoothly
+Detecting trends            | Yes | Trends helps understanding the behavior
+Notification utility        | Yes | using fake notifier
 
 ### List the Test Cases
 
@@ -53,10 +51,10 @@ Add to these tests:
 
 1. Write minimum and maximum to the PDF from a csv containing positive and negative readings
 1. Write "Invalid input" to the PDF when the csv doesn't contain expected data
-1. _enter a test
-1. _enter a test
+1. Verify the count breaches happened in particular time period
+1. Verify the date and time when there is increase/decrease in reading in a time interval
+1. Verify Notification sent when report available on particular time
 
-(add more)
 
 ### Recognize Fakes and Reality
 
@@ -68,8 +66,8 @@ Enter one part that's real and another part that's faked/mocked.
 |--------------------------|--------------|-----------------------------|---
 Read input from server     | csv file     | internal data-structure     | Fake the server store
 Validate input             | csv data     | valid / invalid             | None - it's a pure function
-Notify report availability | _enter input | _enter output               | _enter fake or mock
-Report inaccessible server | _enter input | _enter output               | _enter fake or mock
-Find minimum and maximum   | _enter input | _enter output               | _enter fake or mock
-Detect trend               | _enter input | _enter output               | _enter fake or mock
-Write to PDF               | _enter input | _enter output               | _enter fake or mock
+Notify report availability | pdf file | done/not done               | Fake the notifier
+Report inaccessible server | server path/url | inaccessible               | mock the server
+Find minimum and maximum   | csv data | minimum and maximum value | None - Can use a local csv file
+Detect trend               | csv data | date and time | None - can use local csv file
+Write to PDF               | csv data | pdf file | Fake the pdf generator
